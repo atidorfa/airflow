@@ -7,11 +7,23 @@ from datetime import datetime
 
 
 def geek():
+    print('hello world')
+    print('hello world')
+    print('hello world')
+    print('hello world')
+    print('hello world')
+    print('hello world')
+    print('hello world')
+    print('hello world')
+    print('hello world')
+    print('hello world')
+    print('hello world')
+    print('hello world')
     return 10
 
 
 with DAG(
-        dag_id='python_dag',
+        dag_id='05_python_dag',
         start_date=datetime(2022, 5, 28),
         schedule_interval=None
 ) as dag:

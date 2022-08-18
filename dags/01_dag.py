@@ -11,6 +11,8 @@ from datetime import datetime
 def print_query(**kwargs):
     query2 = kwargs['ti'].xcom_pull(task_ids='mysql_query')
     print(query2)
+    for i in range(0,100):
+        print(i)
 
 
 # default_args = {
@@ -37,7 +39,7 @@ with DAG(
         sql=r"""SELECT sj_celula, año, semana, venta
                         FROM ventapesos
                         group BY sj_celula = 255;""",
-        mysql_conn_id='mysql_default',
+        mysql_conn_id='airflow_mysql_mexico',
         dag=dag)
 
 query >> python

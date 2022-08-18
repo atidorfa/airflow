@@ -21,12 +21,12 @@ def get_data_from_mysql():
     sql = text("SELECT sj_celula, año, semana, venta  \
                 FROM ventapesos;")
 
-    with get_session('mysql_default') as db:
+    with get_session('airflow_mysql_mexico') as db:
         result = db.execute(sql).fetchall()
         if result is None:
             return []
         # res = json.dumps(dict(result))
-    return result
+    print(result)
 
 
 with DAG(
@@ -45,13 +45,8 @@ with DAG(
         dag=dag,
     )
 
-    print_data = BashOperator(
-        task_id='print_data',
-        bash_command=f"'echo {get_data}'"
-    )
-
     end_task = EmptyOperator(
         task_id='end'
     )
 
-start_task >> get_data >> print_data >> end_task
+start_task >> get_data >> end_task
