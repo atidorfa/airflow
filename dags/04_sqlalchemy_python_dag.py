@@ -1,8 +1,6 @@
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
-from airflow.operators.bash import BashOperator
 from airflow.operators.python_operator import PythonOperator
-from airflow.utils.decorators import apply_defaults
 from sqlalchemy import text
 from sqlalchemy.orm import sessionmaker, Session
 from airflow.hooks.mysql_hook import MySqlHook
@@ -25,8 +23,6 @@ def get_data_from_mysql():
         result = db.execute(sql).fetchall()
         if result is None:
             return []
-        # res = json.dumps(dict(result))
-    print(result)
     return result
 
 def insert_data_to_mysql(mysql_data):
@@ -34,8 +30,6 @@ def insert_data_to_mysql(mysql_data):
     sql = text("INSERT INTO airflow_test (air_celula, air_ano, air_semana, air_venta) \
                 VALUES (:air_celula, :air_ano, :air_semana, :air_venta);")
 
-
-    # print(len(mysql_data))
     with get_session('airflow_mysql_mexico') as db:
         for data in mysql_data:
             print(f"Inserting {data[0]}, {data[1]}, {data[2]}, {data[3]} ")
